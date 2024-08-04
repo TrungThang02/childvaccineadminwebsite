@@ -12,6 +12,7 @@ import { NavLink } from 'react-router-dom';
 import logo from "../assets/logo.jpg";
 
 
+
 const Sidebar = ({children}) => {
     const[isOpen ,setIsOpen] = useState(true);
     const toggle = () => setIsOpen (!isOpen);
@@ -23,13 +24,18 @@ const Sidebar = ({children}) => {
             icon:<FaTh/>
         },
         {
-            path:"/about",
+            path:"/appointment",
             name:"Quản lý lịch tiêm",
             icon:<FaUserAlt/>
         },
         {
-            path:"/analytics",
+            path:"/makeappointments",
             name:"Lịch tiêm đã đặt",
+            icon:<FaRegChartBar/>
+        },
+        {
+            path:"/user",
+            name:"Quản lý người dùng",
             icon:<FaRegChartBar/>
         },
         {
@@ -43,14 +49,15 @@ const Sidebar = ({children}) => {
             icon:<FaShoppingBag/>
         },
         {
-            path:"/productList",
+            path:"/login",
             name:"Product List",
             icon:<FaThList/>
         }
     ]
     return (
+  
         <div className="container">
-           <div style={{width: isOpen ? "200px" : "50px"}} className="sidebar">
+           <div style={{width: isOpen ? "300px" : "50px"}} className="sidebar">
                <div className="top_section">
                    <div style={{display: isOpen ? "block" : "none"}} className="logo">
                    <img className='logo' src={'https://www.aha.org/sites/default/files/2021-04/logo-vacciNATION-color.png'} alt="Logo"/>
@@ -72,6 +79,7 @@ const Sidebar = ({children}) => {
            </div>
            <main>{children}</main>
         </div>
+  
     );
 };
 
