@@ -2,7 +2,7 @@
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
-
+import { getStorage } from 'firebase/storage';
 const firebaseConfig = {
   apiKey: "AIzaSyBPT-VmHUsrR41HofEewU68VDRj-2qF5Vc",
   authDomain: "childvaccinationmanageme-f8806.firebaseapp.com",
@@ -20,4 +20,6 @@ const db = getFirestore(app);
 
 const auth = getAuth(app);
 
-export { app, auth, db };
+const storage = getStorage(app);
+
+export { app, auth, db, storage };

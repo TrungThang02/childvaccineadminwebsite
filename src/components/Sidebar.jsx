@@ -1,12 +1,16 @@
 import React, { useState } from 'react';
 import {
     FaTh,
-    FaBars,
+    FaOutdent ,
     FaUserAlt,
     FaRegChartBar,
     FaCommentAlt,
     FaShoppingBag,
-    FaThList
+    FaThList,
+    FaRegCalendarAlt ,
+    FaRegCalendarCheck ,
+    FaExclamationCircle ,
+    FaRegNewspaper 
 }from "react-icons/fa";
 import { NavLink } from 'react-router-dom';
 import logo from "../assets/logo.jpg";
@@ -20,39 +24,30 @@ const Sidebar = ({children}) => {
     const menuItem=[
         {
             path:"/",
-            name:"Trang chủ",
-            icon:<FaTh/>
-        },
-        {
-            path:"/appointment",
             name:"Quản lý lịch tiêm",
-            icon:<FaUserAlt/>
+            icon:<FaRegCalendarAlt />
         },
         {
             path:"/makeappointments",
             name:"Lịch tiêm đã đặt",
-            icon:<FaRegChartBar/>
+            icon:<FaRegCalendarCheck />
         },
         {
             path:"/user",
             name:"Quản lý người dùng",
-            icon:<FaRegChartBar/>
+            icon:<FaUserAlt/>
         },
         {
-            path:"/comment",
+            path:"/vaccineinfo",
             name:"Thông tin vắc xin",
-            icon:<FaCommentAlt/>
+            icon:<FaExclamationCircle />
         },
         {
-            path:"/product",
+            path:"/news",
             name:"Tin tức",
-            icon:<FaShoppingBag/>
+            icon:<FaRegNewspaper />
         },
-        {
-            path:"/login",
-            name:"Product List",
-            icon:<FaThList/>
-        }
+     
     ]
     return (
   
@@ -64,9 +59,7 @@ const Sidebar = ({children}) => {
 
                   
                    </div>
-                   <div style={{marginLeft: isOpen ? "50px" : "0px"}} className="bars">
-                       <FaBars onClick={toggle}/>
-                   </div>
+                 
                </div>
                {
                    menuItem.map((item, index)=>(
