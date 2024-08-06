@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { db } from '../firebase/firebase';
 import { collection, getDocs, updateDoc, doc } from 'firebase/firestore';
-import emailjs from 'emailjs-com'; // Import EmailJS
+import axios from 'axios'; // Import axios
+import Swal from 'sweetalert2'; // Import sweetalert2
 
 const MakeAppointments = () => {
     const [appointments, setAppointments] = useState([]);
@@ -24,23 +25,66 @@ const MakeAppointments = () => {
         fetchAppointments();
     }, []);
 
-    const handleApprove = async (id, email) => {
-        // Cảnh báo xác nhận
-        if (window.confirm("Bạn có chắc chắn muốn duyệt lịch tiêm này?")) {
+    const handleApprove = async (id, userEmail, patientName) => {
+        // Hiển thị hộp thoại xác nhận
+        const result = await Swal.fire({
+            title: 'Xác nhận',
+            text: "Bạn có chắc chắn muốn duyệt lịch tiêm này?",
+            icon: 'question',
+            showCancelButton: true,
+            confirmButtonText: 'Duyệt',
+            cancelButtonText: 'Hủy'
+        });
+
+        if (result.isConfirmed) {
             try {
                 const appointmentDoc = doc(db, 'MakeAppointments', id);
                 await updateDoc(appointmentDoc, { status: 'done' });
-                
-                // Cập nhật lại danh sách các lịch tiêm sau khi cập nhật
+
                 const updatedAppointments = appointments.map(appointment =>
                     appointment.id === id ? { ...appointment, status: 'done' } : appointment
                 );
                 setAppointments(updatedAppointments);
 
-                // Gửi email thông báo
-                await emailjs.send('service_evfiy2d', 'template_3cb7mew', { to_email: email }, 'trantrungthang');
-                
-                alert("Lịch tiêm đã được duyệt và email thông báo đã được gửi.");
+                // Gửi email thông báo bằng axios
+                const htmlContent = `
+                    <p>Kính gửi,</p>
+                    <p>Đã xác nhận tiêm thành công cho hồ sơ ${patientName}</p>
+                   
+                    <p>Trân trọng,</p>
+                `;
+
+                try {
+                    const response = await axios.post('http://192.168.1.3:3001/send-email', {
+                        recipient: userEmail,
+                        subject: 'Xác nhận đặt lịch tiêm chủng',
+                        html: htmlContent,
+                    });
+
+                    if (response.status === 200) {
+                        Swal.fire({
+                            title: 'Thành công',
+                            text: "Lịch tiêm đã được duyệt và email thông báo đã được gửi.",
+                            icon: 'success',
+                            confirmButtonText: 'OK'
+                        });
+                    } else {
+                        Swal.fire({
+                            title: 'Cảnh báo',
+                            text: "Lịch tiêm đã được duyệt, nhưng không thể gửi email thông báo.",
+                            icon: 'warning',
+                            confirmButtonText: 'OK'
+                        });
+                    }
+                } catch (emailError) {
+                    console.error("Error sending email: ", emailError);
+                    Swal.fire({
+                        title: 'Lỗi',
+                        text: "Đã có lỗi xảy ra khi gửi email thông báo.",
+                        icon: 'error',
+                        confirmButtonText: 'OK'
+                    });
+                }
             } catch (error) {
                 console.error("Error updating appointment: ", error);
             }
@@ -81,7 +125,7 @@ const MakeAppointments = () => {
                                 <td className="py-2 px-4 border-r">
                                     {appointment.status === 'pending' ? (
                                         <button
-                                            onClick={() => handleApprove(appointment.id, appointment.email)}
+                                            onClick={() => handleApprove(appointment.id, appointment.email, appointment.patientName)}
                                             className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
                                         >
                                             Duyệt
