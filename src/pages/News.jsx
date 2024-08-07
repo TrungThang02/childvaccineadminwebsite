@@ -129,11 +129,11 @@ const News = () => {
     };
 
     return (
-        <div className="max-w-7xl mx-auto p-6">
-            <h1 className="text-3xl font-bold mb-6">Quản lý tin tức</h1>
+        <div className="mx-auto p-4">
+            <h1 className="text-2xl font-bold mb-4">Quản lý tin tức</h1>
             <button
                 onClick={() => setShowModal(true)}
-                className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 mb-4"
+                className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-green-600 mb-4"
             >
                 Thêm Tin Tức
             </button>
@@ -149,7 +149,7 @@ const News = () => {
                     </thead>
                     <tbody>
                         {news.map(item => (
-                            <tr key={item.id} className="text-center border-b">
+                            <tr key={item.id} className="border-b">
                                 <td className="px-4 py-2">{item.title}</td>
                                 <td className="px-4 py-2">{item.description.length > 50 ? item.description.substring(0, 50) + '...' : item.description}</td>
                                 <td className="px-4 py-2">

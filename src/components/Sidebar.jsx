@@ -55,7 +55,7 @@ const Sidebar = ({children}) => {
            <div style={{width: isOpen ? "300px" : "50px"}} className="sidebar">
                <div className="top_section">
                    <div style={{display: isOpen ? "block" : "none"}} className="logo">
-                   <img className='logo' src={'https://www.aha.org/sites/default/files/2021-04/logo-vacciNATION-color.png'} alt="Logo"/>
+                   <img className='logo' src={'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRIWGtokeqmj8-AxO4klqRvO2U22jq0X9mJuU7p7O4RYtH-0kW0GtoVif9l4aBQ_AdWow&usqp=CAU'} alt="Logo"/>
 
                   
                    </div>

@@ -103,7 +103,7 @@ const Appointment = () => {
     <div className="mx-auto p-4">
       <h2 className="text-2xl font-bold mb-4">Lịch tiêm</h2>
       <button
-        className="bg-blue-500 text-white py-2 px-4 rounded mb-4"
+        className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-green-600 mb-4 "
         onClick={handleOpenModal}
       >
         Thêm lịch tiêm

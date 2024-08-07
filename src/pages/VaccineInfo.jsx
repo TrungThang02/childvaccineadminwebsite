@@ -109,7 +109,7 @@ const VaccineInfo = () => {
       <h1 className="text-2xl font-bold mb-4">Danh Sách Vaccine</h1>
       <button
         onClick={() => setShowAddModal(true)}
-        className="mb-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+        className="mb-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-green-600 mb-4 "
       >
         Thêm Vaccine
       </button>

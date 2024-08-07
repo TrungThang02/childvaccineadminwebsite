@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { collection, getDocs, query, where } from 'firebase/firestore';
 import { db } from '../firebase/firebase';
-import Modal from 'react-modal'; 
-import Swal from 'sweetalert2'; 
+import Modal from 'react-modal';
+import Swal from 'sweetalert2';
 
 
 Modal.setAppElement('#root');
@@ -39,7 +39,7 @@ const User = () => {
             const vaccinerecordSnapshot = await getDocs(vaccinerecordQuery);
 
             if (vaccinerecordSnapshot.empty) {
-                Swal.fire('No Record Found', 'No vaccine record found for this email.', 'info');
+                Swal.fire('Không có hồ sơ nào', '', 'info');
                 return;
             }
 
@@ -58,27 +58,25 @@ const User = () => {
     };
 
     return (
-        <div className="max-w-7xl mx-auto p-6">
-            <h1 className="text-3xl font-bold mb-6">Danh Sách Người Dùng</h1>
+        <div className="mx-auto p-4">
+            <h2 className=" text-2xl font-bold mb-6">Danh sách người dùng</h2>
             <div className="overflow-x-auto">
                 <table className="min-w-full bg-white border border-gray-300">
                     <thead className="bg-gray-100 text-black">
                         <tr>
-                           
-                        
-                            <th className="px-4 py-2 border-b">Email</th>
-                      
-                            <th className="px-4 py-2 border-b">Actions</th>
+                            <th className="px-4 py-2 border-b text-left">Email</th>
+                            <th className="px-4 py-2 border-b text-left"></th>
+
                         </tr>
                     </thead>
                     <tbody>
                         {users.map(user => (
-                            <tr key={user.id} className="text-center border-b hover:bg-gray-100">
-                           
-                       
+                            <tr key={user.id} className=" border-b hover:bg-gray-100">
+
+
                                 <td className="px-4 py-2">{user.email}</td>
-                              
-                              
+
+
                                 <td className="px-4 py-2">
                                     <button
                                         onClick={() => handleViewProfile(user.email)}
