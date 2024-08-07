@@ -144,7 +144,7 @@ const News = () => {
                             <th className="w-1/4 px-4 py-2">Tiêu đề</th>
                             <th className="w-1/4 px-4 py-2">Mô tả</th>
                             <th className="w-1/4 px-4 py-2">Hình ảnh</th>
-                            <th className="w-1/4 px-4 py-2"></th>
+                            <th className="w-1/4 px-2 py-2"></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -155,7 +155,7 @@ const News = () => {
                                 <td className="px-4 py-2">
                                     <img src={item.image} alt={item.title} className="w-16 h-16 object-cover mx-auto"/>
                                 </td>
-                                <td className="px-4 py-2">
+                                <td className="px-1 py-1">
                                     <button 
                                         onClick={() => handleViewDetails(item)}
                                         className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 mr-2"
@@ -164,13 +164,13 @@ const News = () => {
                                     </button>
                                     <button 
                                         onClick={() => handleEdit(item)}
-                                        className="bg-yellow-500 text-white px-4 py-2 rounded hover:bg-yellow-600 mr-2"
+                                        className="bg-yellow-500 text-white px-2 py-2 rounded hover:bg-yellow-600 mr-2"
                                     >
                                         Sửa
                                     </button>
                                     <button 
                                         onClick={() => handleDelete(item.id)}
-                                        className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600"
+                                        className="bg-red-500 text-white px-2 py-2 rounded hover:bg-red-600"
                                     >
                                         Xóa
                                     </button>
