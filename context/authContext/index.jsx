@@ -1,64 +1,28 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { createContext, useState, useEffect, useContext } from 'react';
+import { onAuthStateChanged } from 'firebase/auth';
 
-import { auth } from "../../src/firebase/firebase";
+import { auth } from '../../src/firebase/firebase';
 
-import { onAuthStateChanged } from "firebase/auth";
+const AuthContext = createContext();
 
-const AuthContext = React.createContext();
+export const AuthProvider = ({ children }) => {
+    const [currentUser, setCurrentUser] = useState(null);
+    const [loading, setLoading] = useState(true);
 
-export function useAuth() {
-  return useContext(AuthContext);
-}
+    useEffect(() => {
+        const unsubscribe = onAuthStateChanged(auth, (user) => {
+            setCurrentUser(user);
+            setLoading(false);
+        });
 
-export function AuthProvider({ children }) {
-  const [currentUser, setCurrentUser] = useState(null);
-  const [userLoggedIn, setUserLoggedIn] = useState(false);
-  const [isEmailUser, setIsEmailUser] = useState(false);
-  const [isGoogleUser, setIsGoogleUser] = useState(false);
-  const [loading, setLoading] = useState(true);
+        return unsubscribe;
+    }, []);
 
-  useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, initializeUser);
-    return unsubscribe;
-  }, []);
+    return (
+        <AuthContext.Provider value={{ currentUser }}>
+            {!loading && children}
+        </AuthContext.Provider>
+    );
+};
 
-  async function initializeUser(user) {
-    if (user) {
-
-      setCurrentUser({ ...user });
-
-      // check if provider is email and password login
-      const isEmail = user.providerData.some(
-        (provider) => provider.providerId === "password"
-      );
-      setIsEmailUser(isEmail);
-
-      // check if the auth provider is google or not
-    //   const isGoogle = user.providerData.some(
-    //     (provider) => provider.providerId === GoogleAuthProvider.PROVIDER_ID
-    //   );
-    //   setIsGoogleUser(isGoogle);
-
-      setUserLoggedIn(true);
-    } else {
-      setCurrentUser(null);
-      setUserLoggedIn(false);
-    }
-
-    setLoading(false);
-  }
-
-  const value = {
-    userLoggedIn,
-    isEmailUser,
-    isGoogleUser,
-    currentUser,
-    setCurrentUser
-  };
-
-  return (
-    <AuthContext.Provider value={value}>
-      {!loading && children}
-    </AuthContext.Provider>
-  );
-}
+export const useAuth = () => useContext(AuthContext);
