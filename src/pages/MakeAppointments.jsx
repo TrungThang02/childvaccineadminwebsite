@@ -52,7 +52,7 @@ const MakeAppointments = () => {
                 `;
 
                 try {
-                    const response = await axios.post('http://192.168.1.3:3001/send-email', {
+                    const response = await axios.post('http://192.168.1.3:3002/send-email', {
                         recipient: userEmail,
                         subject: 'Xác nhận đặt lịch tiêm chủng',
                         html: htmlContent,
@@ -138,7 +138,7 @@ const MakeAppointments = () => {
             `;
 
             try {
-                const response = await axios.post('http://192.168.1.3:3001/send-email', {
+                const response = await axios.post('http://192.168.1.3:3002/send-email', {
                     recipient: appointmentData.email,
                     subject: 'Email thông báo lịch tiêm',
                     html: htmlContent,

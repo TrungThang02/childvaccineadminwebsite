@@ -73,9 +73,7 @@ const User = () => {
                         {users.map(user => (
                             <tr key={user.id} className=" border-b hover:bg-gray-100">
 
-
                                 <td className="px-4 py-2">{user.email}</td>
-
 
                                 <td className="px-4 py-2">
                                     <button
@@ -96,7 +94,7 @@ const User = () => {
                 <Modal
                     isOpen={modalIsOpen}
                     onRequestClose={closeModal}
-                    className="fixed inset-0 bg-white p-6 mx-auto max-w-4xl h-[600px] rounded shadow-lg overflow-y-auto mt-5"
+                    className="fixed inset-0 bg-white p-6 mx-auto max-w-7xl h-[600px] rounded shadow-lg overflow-y-auto mt-5"
                     overlayClassName="fixed inset-0 bg-black bg-opacity-50"
                 >
                     <h2 className="text-2xl font-bold mb-4">Thông Tin Hồ Sơ</h2>
